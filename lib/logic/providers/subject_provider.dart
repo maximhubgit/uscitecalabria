@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cassa1/logic/providers/auth_provider.dart';
-import 'package:cassa1/data/repositories/subject_repository.dart';
-import 'package:cassa1/data/services/cache_service.dart';
-import 'package:cassa1/data/models/subject.dart';
+import 'package:uscitecalabria/logic/providers/auth_provider.dart';
+import 'package:uscitecalabria/data/repositories/subject_repository.dart';
+import 'package:uscitecalabria/data/services/cache_service.dart';
+import 'package:uscitecalabria/data/models/subject.dart';
 
 final subjectRepositoryProvider = Provider<SubjectRepository>((ref) {
   return SubjectRepository(

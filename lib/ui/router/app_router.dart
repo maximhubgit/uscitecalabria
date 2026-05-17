@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cassa1/logic/providers/auth_provider.dart';
-import 'package:cassa1/ui/screens/auth/login_screen.dart';
-import 'package:cassa1/ui/screens/home/home_screen.dart';
-import 'package:cassa1/ui/screens/subjects/subject_list_screen.dart';
-import 'package:cassa1/ui/screens/subjects/subject_detail_screen.dart';
-import 'package:cassa1/ui/screens/groups/group_list_screen.dart';
-import 'package:cassa1/ui/screens/entries/entry_list_screen.dart';
-import 'package:cassa1/ui/screens/transactions/transaction_list_screen.dart';
-import 'package:cassa1/ui/screens/transactions/all_transactions_screen.dart';
-import 'package:cassa1/ui/screens/reports/report_screen.dart';
-import 'package:cassa1/ui/screens/reports/report_detail_screen.dart';
-import 'package:cassa1/ui/screens/monthly_closing/monthly_closing_screen.dart';
+import 'package:uscitecalabria/logic/providers/auth_provider.dart';
+import 'package:uscitecalabria/ui/screens/auth/login_screen.dart';
+import 'package:uscitecalabria/ui/screens/home/home_screen.dart';
+import 'package:uscitecalabria/ui/screens/subjects/subject_list_screen.dart';
+import 'package:uscitecalabria/ui/screens/subjects/subject_detail_screen.dart';
+import 'package:uscitecalabria/ui/screens/groups/group_list_screen.dart';
+import 'package:uscitecalabria/ui/screens/entries/entry_list_screen.dart';
+import 'package:uscitecalabria/ui/screens/transactions/transaction_list_screen.dart';
+import 'package:uscitecalabria/ui/screens/transactions/all_transactions_screen.dart';
+import 'package:uscitecalabria/ui/screens/reports/report_screen.dart';
+import 'package:uscitecalabria/ui/screens/reports/report_detail_screen.dart';
+import 'package:uscitecalabria/ui/screens/monthly_closing/monthly_closing_screen.dart';
 
 final routeObserver = RouteObserver<ModalRoute<void>>();
 

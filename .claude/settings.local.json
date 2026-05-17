@@ -23,7 +23,10 @@
       "Bash(Select-String -Pattern \"voice_transaction_dialog\")",
       "Bash(git commit *)",
       "Bash(dart analyze *)",
-      "Bash(Get-ChildItem *)"
+      "Bash(Get-ChildItem *)",
+      "Bash(Remove-Item lib/ui/widgets/voice_transaction_dialog.dart -Force)",
+      "Bash(Remove-Item lib/data/services/voice_transaction_service.dart -Force)",
+      "PowerShell(Rename-Item *)"
     ]
   }
 }

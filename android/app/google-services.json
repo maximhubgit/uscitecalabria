@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "288514978155",
-    "project_id": "cassafamily",
-    "storage_bucket": "cassafamily.firebasestorage.app"
+    "project_number": "691377905867",
+    "project_id": "uscite-calabria",
+    "storage_bucket": "uscite-calabria.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:288514978155:android:74fce3223e9888a7505c2e",
+        "mobilesdk_app_id": "1:691377905867:android:678302eacfc0628a83bb4e",
         "android_client_info": {
           "package_name": "com.maxim.cassafamily"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDRvxaDNEhqwdoGJDzcvBnga1135WAh0Yg"
+          "current_key": "AIzaSyBEJQCDWmpDvpujy9dkh-8K86Zj7BZN_Uk"
         }
       ],
       "services": {

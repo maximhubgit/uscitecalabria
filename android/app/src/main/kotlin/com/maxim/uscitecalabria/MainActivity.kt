@@ -1,4 +1,4 @@
-package com.maxim.cassafamily
+package com.maxim.uscitecalabria
 
 import io.flutter.embedding.android.FlutterActivity
 

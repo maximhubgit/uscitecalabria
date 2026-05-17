@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cassa1/data/models/group.dart';
-import 'package:cassa1/data/models/entry.dart';
-import 'package:cassa1/data/models/transaction.dart';
-import 'package:cassa1/utils/icon_helper.dart';
+import 'package:uscitecalabria/data/models/group.dart';
+import 'package:uscitecalabria/data/models/entry.dart';
+import 'package:uscitecalabria/data/models/transaction.dart';
+import 'package:uscitecalabria/utils/icon_helper.dart';
 
 /// Shows a modal bottom sheet with a group→entry picker.
 /// Returns the selected entry ID, or null if cancelled.

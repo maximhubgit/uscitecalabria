@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cassa1/logic/providers/entry_provider.dart';
-import 'package:cassa1/logic/providers/group_provider.dart';
-import 'package:cassa1/logic/providers/transaction_provider.dart';
-import 'package:cassa1/utils/constants.dart';
-import 'package:cassa1/utils/icon_helper.dart';
-import 'package:cassa1/data/models/entry.dart';
-import 'package:cassa1/data/models/group.dart';
+import 'package:uscitecalabria/logic/providers/entry_provider.dart';
+import 'package:uscitecalabria/logic/providers/group_provider.dart';
+import 'package:uscitecalabria/logic/providers/transaction_provider.dart';
+import 'package:uscitecalabria/utils/constants.dart';
+import 'package:uscitecalabria/utils/icon_helper.dart';
+import 'package:uscitecalabria/data/models/entry.dart';
+import 'package:uscitecalabria/data/models/group.dart';
 
 class EntryListScreen extends ConsumerWidget {
   const EntryListScreen({super.key});

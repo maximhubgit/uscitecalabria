@@ -4,11 +4,11 @@ import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:cassa1/data/models/transaction.dart';
-import 'package:cassa1/data/models/subject.dart';
-import 'package:cassa1/data/models/entry.dart';
-import 'package:cassa1/data/models/group.dart';
-import 'package:cassa1/data/services/firebase_service.dart';
+import 'package:uscitecalabria/data/models/transaction.dart';
+import 'package:uscitecalabria/data/models/subject.dart';
+import 'package:uscitecalabria/data/models/entry.dart';
+import 'package:uscitecalabria/data/models/group.dart';
+import 'package:uscitecalabria/data/services/firebase_service.dart';
 
 class ImportService {
   static Future<void> pickAndImport({

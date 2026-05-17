@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cassa1/utils/constants.dart';
+import 'package:uscitecalabria/utils/constants.dart';
 import 'auth_provider.dart';
 
 final themeModeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {

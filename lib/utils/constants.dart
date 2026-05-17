@@ -11,7 +11,7 @@ class AppColors {
 }
 
 class AppStrings {
-  static const appName = 'Cassa Famiglia';
+  static const appName = 'Uscite Calabria';
   static const subjects = 'Soggetti';
   static const groups = 'Gruppi';
   static const entries = 'Voci';

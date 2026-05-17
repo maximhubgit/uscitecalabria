@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:cassa1/logic/providers/transaction_provider.dart';
-import 'package:cassa1/logic/providers/subject_provider.dart';
-import 'package:cassa1/logic/providers/group_provider.dart';
-import 'package:cassa1/logic/providers/entry_provider.dart';
-import 'package:cassa1/logic/providers/auth_provider.dart';
-import 'package:cassa1/utils/constants.dart';
-import 'package:cassa1/data/models/transaction.dart';
-import 'package:cassa1/data/models/subject.dart';
-import 'package:cassa1/data/models/group.dart';
-import 'package:cassa1/data/models/entry.dart';
-import 'package:cassa1/data/services/export_service.dart';
-import 'package:cassa1/data/services/voice_transaction_service.dart';
-import 'package:cassa1/ui/widgets/voice_transaction_dialog.dart';
-import 'package:cassa1/ui/widgets/entry_picker.dart';
+import 'package:uscitecalabria/logic/providers/transaction_provider.dart';
+import 'package:uscitecalabria/logic/providers/subject_provider.dart';
+import 'package:uscitecalabria/logic/providers/group_provider.dart';
+import 'package:uscitecalabria/logic/providers/entry_provider.dart';
+import 'package:uscitecalabria/utils/constants.dart';
+import 'package:uscitecalabria/data/models/transaction.dart';
+import 'package:uscitecalabria/data/models/subject.dart';
+import 'package:uscitecalabria/data/models/group.dart';
+import 'package:uscitecalabria/data/models/entry.dart';
+import 'package:uscitecalabria/data/services/export_service.dart';
+import 'package:uscitecalabria/ui/widgets/entry_picker.dart';
 
 class AllTransactionsScreen extends ConsumerWidget {
   const AllTransactionsScreen({super.key});
@@ -26,12 +22,6 @@ class AllTransactionsScreen extends ConsumerWidget {
     final subjectsAsync = ref.watch(subjectsProvider);
     final groupsAsync = ref.watch(groupsProvider);
     final entriesAsync = ref.watch(entriesProvider);
-
-    final extra = GoRouterState.of(context).extra;
-    VoiceTransactionResult? voiceResult;
-    if (extra is VoiceTransactionResult) {
-      voiceResult = extra;
-    }
 
     return transactionsAsync.when(
       loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
@@ -50,7 +40,6 @@ class AllTransactionsScreen extends ConsumerWidget {
               subjects: subjects,
               groups: groups,
               entries: entries,
-              voiceResult: voiceResult,
             ),
           ),
         ),
@@ -64,14 +53,12 @@ class _AllTransactionsContent extends ConsumerStatefulWidget {
   final List<Subject> subjects;
   final List<Group> groups;
   final List<Entry> entries;
-  final VoiceTransactionResult? voiceResult;
 
   const _AllTransactionsContent({
     required this.transactions,
     required this.subjects,
     required this.groups,
     required this.entries,
-    this.voiceResult,
   });
 
   @override
@@ -81,28 +68,12 @@ class _AllTransactionsContent extends ConsumerStatefulWidget {
 class _AllTransactionsContentState extends ConsumerState<_AllTransactionsContent> {
   late DateTime _selectedMonth;
   final _scrollController = ScrollController();
-  VoiceTransactionResult? _pendingVoiceResult;
 
   @override
   void initState() {
     super.initState();
     final now = DateTime.now();
     _selectedMonth = DateTime(now.year, now.month);
-    _pendingVoiceResult = widget.voiceResult;
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_pendingVoiceResult != null) {
-      final result = _pendingVoiceResult!;
-      _pendingVoiceResult = null;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) {
-          _showAddDialogFromVoice(context, ref, result);
-        }
-      });
-    }
   }
 
   @override
@@ -203,11 +174,6 @@ class _AllTransactionsContentState extends ConsumerState<_AllTransactionsContent
               entries: widget.entries,
               groups: widget.groups,
             ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.mic),
-            tooltip: 'Nuova transazione vocale',
-            onPressed: () => _showVoiceDialog(context, ref),
           ),
           IconButton(
             icon: const Icon(Icons.add),
@@ -959,248 +925,4 @@ class _AllTransactionsContentState extends ConsumerState<_AllTransactionsContent
     );
   }
 
-  void _showVoiceDialog(BuildContext context, WidgetRef ref) async {
-    final defaultSubjectId = ref.read(defaultSubjectProvider);
-    final result = await showDialog<VoiceTransactionResult>(
-      context: context,
-      builder: (dialogContext) => VoiceTransactionDialog(
-        subjects: widget.subjects,
-        entries: widget.entries,
-        groups: widget.groups,
-        defaultSubjectId: defaultSubjectId,
-      ),
-    );
-
-    if (result != null && !result.isError && context.mounted) {
-      _showAddDialogFromVoice(context, ref, result);
-    }
   }
-
-  void _showAddDialogFromVoice(
-    BuildContext context,
-    WidgetRef ref,
-    VoiceTransactionResult voiceResult,
-  ) {
-    final amountController = TextEditingController(text: voiceResult.amount.toString());
-    final noteController = TextEditingController(text: voiceResult.note ?? '');
-    TransactionType selectedType = voiceResult.type;
-    String? selectedEntryId = voiceResult.entryId;
-    String? selectedFromSubjectId = voiceResult.fromSubjectId;
-    String? selectedToSubjectId = voiceResult.toSubjectId;
-    String? selectedSubjectId = voiceResult.subjectId;
-    DateTime selectedDate;
-    if (voiceResult.date != null) {
-      selectedDate = voiceResult.date!;
-    } else {
-      final now = DateTime.now();
-      selectedDate = (_selectedMonth.year == now.year && _selectedMonth.month == now.month)
-          ? DateTime(now.year, now.month, now.day)
-          : DateTime(_selectedMonth.year, _selectedMonth.month + 1, 0);
-    }
-
-    showDialog(
-      context: context,
-      builder: (dialogContext) => StatefulBuilder(
-        builder: (dialogContext, setState) {
-          return AlertDialog(
-            content: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  DropdownButton<TransactionType>(
-                    value: selectedType,
-                    isExpanded: true,
-                    items: const [
-                      DropdownMenuItem(value: TransactionType.income, child: Text('Entrata')),
-                      DropdownMenuItem(value: TransactionType.expense, child: Text('Uscita')),
-                      DropdownMenuItem(value: TransactionType.transfer, child: Text('Trasferimento')),
-                      DropdownMenuItem(value: TransactionType.anticipi, child: Text('Anticipo')),
-                    ],
-                    onChanged: (value) => setState(() => selectedType = value!),
-                  ),
-                  const SizedBox(height: 12),
-                  InkWell(
-                    onTap: () async {
-                      final picked = await showDatePicker(
-                        context: dialogContext,
-                        initialDate: selectedDate,
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100),
-                      );
-                      if (picked != null) setState(() => selectedDate = picked);
-                    },
-                    child: InputDecorator(
-                      decoration: const InputDecoration(labelText: 'Data *'),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(DateFormat('dd/MM/yyyy').format(selectedDate)),
-                          const Icon(Icons.calendar_today, size: 16),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: amountController,
-                    decoration: InputDecoration(labelText: '${AppStrings.amount} *'),
-                    keyboardType: TextInputType.number,
-                  ),
-                  const SizedBox(height: 12),
-                  if (selectedType == TransactionType.transfer) ...[
-                    DropdownButton<String>(
-                      value: selectedFromSubjectId,
-                      isExpanded: true,
-                      hint: const Text('Da soggetto *'),
-                      items: widget.subjects.map((s) {
-                        return DropdownMenuItem(value: s.id, child: Text(s.name));
-                      }).toList(),
-                      onChanged: (value) => setState(() => selectedFromSubjectId = value),
-                    ),
-                    const SizedBox(height: 12),
-                    DropdownButton<String>(
-                      value: selectedToSubjectId,
-                      isExpanded: true,
-                      hint: const Text('A soggetto *'),
-                      items: widget.subjects.map((s) {
-                        return DropdownMenuItem(value: s.id, child: Text(s.name));
-                      }).toList(),
-                      onChanged: (value) => setState(() => selectedToSubjectId = value),
-                    ),
-                  ],
-                  if (selectedType != TransactionType.transfer) ...[
-                    DropdownButton<String>(
-                      value: selectedSubjectId,
-                      isExpanded: true,
-                      hint: const Text('Soggetto *'),
-                      items: widget.subjects.map((s) {
-                        return DropdownMenuItem(value: s.id, child: Text(s.name));
-                      }).toList(),
-                      onChanged: (value) => setState(() => selectedSubjectId = value),
-                    ),
-                    const SizedBox(height: 12),
-                    InkWell(
-                      onTap: () async {
-                        final entryId = await showEntryPicker(
-                          context: dialogContext,
-                          groups: widget.groups,
-                          entries: widget.entries,
-                          selectedType: selectedType,
-                          selectedEntryId: selectedEntryId,
-                        );
-                        if (entryId != null) {
-                          setState(() => selectedEntryId = entryId);
-                        }
-                      },
-                      borderRadius: BorderRadius.circular(8),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Theme.of(dialogContext).dividerColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                _entryLabel(selectedEntryId),
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: selectedEntryId != null
-                                      ? Theme.of(dialogContext).colorScheme.onSurface
-                                      : Theme.of(dialogContext).hintColor,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const Icon(Icons.expand_more, size: 20),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: noteController,
-                    decoration: const InputDecoration(labelText: AppStrings.note),
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(dialogContext),
-                child: const Text(AppStrings.cancel),
-              ),
-              TextButton(
-                onPressed: () {
-                  final amountText = amountController.text.trim();
-                  final amount = double.tryParse(amountText);
-
-                  if (amount == null || amount <= 0) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Inserisci un importo valido'), backgroundColor: Colors.red),
-                    );
-                    return;
-                  }
-
-                  if (selectedType == TransactionType.transfer) {
-                    if (selectedFromSubjectId == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Seleziona il soggetto di origine'), backgroundColor: Colors.red),
-                      );
-                      return;
-                    }
-                    if (selectedToSubjectId == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Seleziona il soggetto di destinazione'), backgroundColor: Colors.red),
-                      );
-                      return;
-                    }
-                    if (selectedFromSubjectId == selectedToSubjectId) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('I soggetti di origine e destinazione devono essere diversi'), backgroundColor: Colors.red),
-                      );
-                      return;
-                    }
-                  } else {
-                    if (selectedSubjectId == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Seleziona un soggetto'), backgroundColor: Colors.red),
-                      );
-                      return;
-                    }
-                    if (selectedEntryId == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Seleziona una voce'), backgroundColor: Colors.red),
-                      );
-                      return;
-                    }
-                  }
-
-                  final repo = ref.read(transactionRepositoryProvider);
-                  final newTx = AppTransaction(
-                    id: DateTime.now().millisecondsSinceEpoch.toString(),
-                    type: selectedType,
-                    amount: amount,
-                    date: selectedDate,
-                    note: noteController.text.isEmpty ? null : noteController.text,
-                    subjectId: selectedType != TransactionType.transfer ? selectedSubjectId : null,
-                    entryId: selectedEntryId,
-                    fromSubjectId: selectedType == TransactionType.transfer ? selectedFromSubjectId : null,
-                    toSubjectId: selectedType == TransactionType.transfer ? selectedToSubjectId : null,
-                    createdAt: DateTime.now(),
-                  );
-                  repo.add(newTx);
-                  Navigator.pop(dialogContext);
-                },
-                child: const Text(AppStrings.save),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}

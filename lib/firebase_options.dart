@@ -20,28 +20,27 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: "AIzaSyB4toju0KCdLvl6RnGc0F6UrytpJ9aGQMs",
-    authDomain: "cassafamily.firebaseapp.com",
-    projectId: "cassafamily",
-    storageBucket: "cassafamily.firebasestorage.app",
-    messagingSenderId: "288514978155",
-    appId: "1:288514978155:web:9633888fd2789182505c2e",
-    measurementId: "G-HL5MKKRM2R"
+    apiKey: "AIzaSyC_UwXfbLkrW_lY8otrwGL_bb7tBjhD16M",
+    authDomain: "uscite-calabria.firebaseapp.com",
+    projectId: "uscite-calabria",
+    storageBucket: "uscite-calabria.firebasestorage.app",
+    messagingSenderId: "691377905867",
+    appId: "1:691377905867:web:4ae8fdbfd1ffa29e83bb4e"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: "AIzaSyDRvxaDNEhqwdoGJDzcvBnga1135WAh0Yg",
-    appId: "1:288514978155:android:74fce3223e9888a7505c2e",
-    messagingSenderId: "288514978155",
-    projectId: "cassafamily",
-    storageBucket: "cassafamily.firebasestorage.app",
+    apiKey: "AIzaSyBEJQCDWmpDvpujy9dkh-8K86Zj7BZN_Uk",
+    appId: "1:691377905867:android:678302eacfc0628a83bb4e",
+    messagingSenderId: "691377905867",
+    projectId: "uscite-calabria",
+    storageBucket: "uscite-calabria.firebasestorage.app",
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'INSERISCI_API_KEY',
-    appId: 'INSERISCI_IOS_APP_ID',
-    messagingSenderId: 'INSERISCI_MESSAGING_SENDER_ID',
-    projectId: 'INSERISCI_PROJECT_ID',
-    storageBucket: 'INSERISCI_PROJECT_ID.appspot.com',
+    apiKey: 'AIzaSyC_UwXfbLkrW_lY8otrwGL_bb7tBjhD16M',
+    appId: '1:691377905867:ios:placeholder',
+    messagingSenderId: '691377905867',
+    projectId: 'uscite-calabria',
+    storageBucket: 'uscite-calabria.appspot.com',
   );
 }

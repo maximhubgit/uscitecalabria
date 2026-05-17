@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cassa1/logic/providers/subject_provider.dart';
-import 'package:cassa1/utils/constants.dart';
-import 'package:cassa1/utils/icon_helper.dart';
-import 'package:cassa1/data/models/subject.dart';
+import 'package:uscitecalabria/logic/providers/subject_provider.dart';
+import 'package:uscitecalabria/utils/constants.dart';
+import 'package:uscitecalabria/utils/icon_helper.dart';
+import 'package:uscitecalabria/data/models/subject.dart';
 
 class SubjectListScreen extends ConsumerWidget {
   const SubjectListScreen({super.key});

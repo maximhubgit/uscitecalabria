@@ -4,10 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'firebase_options.dart';
-import 'package:cassa1/ui/router/app_router.dart';
-import 'package:cassa1/utils/constants.dart';
-import 'package:cassa1/logic/providers/auth_provider.dart';
-import 'package:cassa1/logic/providers/theme_provider.dart';
+import 'package:uscitecalabria/ui/router/app_router.dart';
+import 'package:uscitecalabria/utils/constants.dart';
+import 'package:uscitecalabria/logic/providers/auth_provider.dart';
+import 'package:uscitecalabria/logic/providers/theme_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

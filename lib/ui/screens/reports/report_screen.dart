@@ -3,16 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:cassa1/logic/providers/transaction_provider.dart';
-import 'package:cassa1/logic/providers/subject_provider.dart';
-import 'package:cassa1/logic/providers/group_provider.dart';
-import 'package:cassa1/logic/providers/entry_provider.dart';
-import 'package:cassa1/utils/icon_helper.dart';
-import 'package:cassa1/utils/constants.dart';
-import 'package:cassa1/data/models/transaction.dart';
-import 'package:cassa1/data/models/subject.dart';
-import 'package:cassa1/data/models/group.dart';
-import 'package:cassa1/data/models/entry.dart';
+import 'package:uscitecalabria/logic/providers/transaction_provider.dart';
+import 'package:uscitecalabria/logic/providers/subject_provider.dart';
+import 'package:uscitecalabria/logic/providers/group_provider.dart';
+import 'package:uscitecalabria/logic/providers/entry_provider.dart';
+import 'package:uscitecalabria/utils/icon_helper.dart';
+import 'package:uscitecalabria/utils/constants.dart';
+import 'package:uscitecalabria/data/models/transaction.dart';
+import 'package:uscitecalabria/data/models/subject.dart';
+import 'package:uscitecalabria/data/models/group.dart';
+import 'package:uscitecalabria/data/models/entry.dart';
 
 enum _ReportView { group, entry }
 

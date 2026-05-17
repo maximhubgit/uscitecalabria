@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:cassa1/data/models/transaction.dart';
-import 'package:cassa1/data/models/subject.dart';
-import 'package:cassa1/data/models/entry.dart';
-import 'package:cassa1/data/models/group.dart';
+import 'package:uscitecalabria/data/models/transaction.dart';
+import 'package:uscitecalabria/data/models/subject.dart';
+import 'package:uscitecalabria/data/models/entry.dart';
+import 'package:uscitecalabria/data/models/group.dart';
 
 class ExportService {
   static String _transactionTypeLabel(TransactionType type) {
@@ -102,13 +102,13 @@ class ExportService {
       );
 
       final dir = await getTemporaryDirectory();
-      final fileName = 'cassa_export_${DateFormat('yyyyMMdd_HHmmss').format(DateTime.now())}.csv';
+      final fileName = 'uscitecalabria_export_${DateFormat('yyyyMMdd_HHmmss').format(DateTime.now())}.csv';
       final file = File('${dir.path}/$fileName');
       await file.writeAsString(csv);
 
       await Share.shareXFiles(
         [XFile(file.path)],
-        subject: 'Export Cassa1',
+        subject: 'Export uscitecalabria',
       );
     } catch (e) {
       messenger.showSnackBar(
