@@ -46,6 +46,11 @@ class AppDrawer extends ConsumerWidget {
           ),
           const Divider(),
           _DrawerItem(
+            icon: Icons.person,
+            label: 'Soggetti',
+            onTap: () => context.go('/subjects'),
+          ),
+          _DrawerItem(
             icon: Icons.folder,
             label: 'Gruppi',
             onTap: () => context.go('/groups'),
